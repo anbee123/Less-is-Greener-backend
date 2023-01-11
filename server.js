@@ -19,7 +19,43 @@ mongoose.connection
   .on("close", () => console.log("You are disconnected from MongoDB"))
   .on("error", (error) => console.log(error));
 
+// Routes
 
+// INDEX
+app.get("/lessisgreener", async (req, res) => {
+  try {
+    res.status(200).json(await Topics.find({}));
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+// CREATE
+app.post("/lessisgreener", async (req, res) => {
+  try {
+    res.status(200).json(await Topics.create(req.body));
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+// DELETE
+app.delete("/lessisgreener/:id", async (req, res) => {
+  try {
+    res.json(await Topics.findByIdAndDelete(req.params.id));
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+// UPDATE
+app.put("/lessisgreener/:id", async (req, res) => {
+  try {
+    res.json(await Topics.findByIdAndUpdate(req.params.id,req.body,{new:true}));
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
 
 // LISTENER
 app.listen(PORT, () =>
