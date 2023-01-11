@@ -1,20 +1,24 @@
-// Dependencies
-const { PORT, DATABASE_URL } = process.env;
-const express = require('express')
-const app = express()
-const mongoose = require('mongoose')
-// Pulls environment vars into serv er js from .env
-require('dotenv').config()
+// DEPENDENCIES
 
-mongoose.connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  // Database Connection Logs
-const db = mongoose.connection
-db.on("error", (err) => console.log(err.message))
-db.on("connected", () => console.log("mongo connected"))
-db.on("disconnected", () => console.log("mongo disconnected"))
+// get .env vars
+require("dotenv").config();
+
+// get port and db url
+const { PORT, DATABASE_URL } = process.env;
+const express = require("express");
+const mongoose = require("mongoose");
+const morgan = require("morgan");
+const cors = require("cors");
+const app = express();
+
+// DATABASE CONNECTION
+mongoose.connect(DATABASE_URL);
+// Connection Events
+mongoose.connection
+  .on("open", () => console.log("You are connected to MongoDB"))
+  .on("close", () => console.log("You are disconnected from MongoDB"))
+  .on("error", (error) => console.log(error));
+
 
 
 // LISTENER
