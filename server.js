@@ -6,10 +6,7 @@ const mongoose = require('mongoose')
 // Pulls environment vars into serv er js from .env
 require('dotenv').config()
 
-mongoose.connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+mongoose.connect(DATABASE_URL);
   // Database Connection Logs
 const db = mongoose.connection
 db.on("error", (err) => console.log(err.message))
