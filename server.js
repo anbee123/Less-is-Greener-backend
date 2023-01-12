@@ -18,6 +18,27 @@ mongoose.connection
   .on("open", () => console.log("You are connected to MongoDB"))
   .on("close", () => console.log("You are disconnected from MongoDB"))
   .on("error", (error) => console.log(error));
+ 
+// Model
+const TopicsSchema = new mongoose.Schema({
+  topic: String,
+  icon: String,
+  image: String,
+  titleOne: String,
+  urlOne: String,
+  titleTwo: String,
+  urlTwo: String,
+  titleThree: String,
+  urlThree: String
+});
+
+const Topics = mongoose.model("Topics", TopicsSchema);
+
+// Middleware
+app.use(cors());
+app.use(morgan("dev"));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 // Routes
 
